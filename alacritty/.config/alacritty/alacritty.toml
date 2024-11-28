@@ -30,6 +30,9 @@ color = "#d18616"
 index = 17
 color = "#ffa198"
 
+[font]
+size = 16
+
 [font.bold]
 family = "FiraCode Nerd Font"
 style = "Bold"

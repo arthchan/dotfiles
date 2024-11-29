@@ -52,3 +52,6 @@ style = "Regular"
 [window.padding]
 x = 5
 y = 5
+
+[env]
+WINIT_X11_SCALE_FACTOR = "1.0"

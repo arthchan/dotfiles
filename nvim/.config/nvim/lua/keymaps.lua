@@ -1,8 +1,8 @@
 -- Moving between windows
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to the left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to the bottom window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to the top window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to the right window" })
+vim.keymap.set({"n", "t"}, "<C-h>", "<cmd>wincmd h<CR>", { desc = "Move to the left window" })
+vim.keymap.set({"n", "t"}, "<C-j>", "<cmd>wincmd j<CR>", { desc = "Move to the bottom window" })
+vim.keymap.set({"n", "t"}, "<C-k>", "<cmd>wincmd k<CR>", { desc = "Move to the top window" })
+vim.keymap.set({"n", "t"}, "<C-l>", "<cmd>wincmd l<CR>", { desc = "Move to the right window" })
 
 -- Resize window
 vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height" })

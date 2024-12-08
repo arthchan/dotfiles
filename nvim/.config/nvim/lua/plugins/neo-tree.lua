@@ -8,7 +8,15 @@ return {
 		"s1n7ax/nvim-window-picker",
 	},
 	config = function()
-		require("neo-tree").setup{}
+		require("neo-tree").setup({
+			filesystem = {
+				filtered_items = {
+					visible = true,
+					hide_dotfiles = false,
+					hide_gitignored = false,
+				},
+			},
+		})
 		vim.keymap.set("n", "<C-r>", ":Neotree toggle<CR>", { desc = "Neotree: Toggle Neotree" })
 	end,
 }

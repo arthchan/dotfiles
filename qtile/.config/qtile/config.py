@@ -376,6 +376,7 @@ def set_widgets_screen():
                 ),
             widget.GroupBox(
                 active=colors[3],
+                disable_drag=True,
                 highlight_method="border",
                 padding=3,
                 ),

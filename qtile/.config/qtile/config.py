@@ -339,8 +339,8 @@ for i in groups:
     )
 
 layout_theme = {"border_width": 3,
-                "margin": 10,
-                "border_focus": "#a91ae1",
+                "margin": 6,
+                "border_focus": "#51afef",
                 "border_normal": "#282c34"
                 }
 
@@ -363,7 +363,7 @@ colors = ["#000000", "#181a1f", "#ffffff", "#51afef"]
 
 widget_defaults = dict(
     font="FiraCode Nerd Font",
-    fontsize=22,
+    fontsize=20,
     background=colors[1],
 )
 
@@ -371,14 +371,14 @@ widget_defaults = dict(
 def set_widgets_screen():
     return [
             widget.Sep(
-                linewidth=6,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=3
                 ),
             widget.GroupBox(
                 active=colors[3],
                 disable_drag=True,
                 highlight_method="border",
-                padding=3,
+                padding=3
                 ),
             widget.Sep(
                 padding=10
@@ -398,8 +398,8 @@ def set_widgets_screen():
                 padding=15
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.CPU(
                 format="{load_percent:>3.0f}%",
@@ -408,8 +408,8 @@ def set_widgets_screen():
                 padding=15
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.Memory(
                 format="{MemPercent:>3.0f}%",
@@ -418,8 +418,8 @@ def set_widgets_screen():
                 padding=15
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.GenPollText(
                 update_interval=1,
@@ -433,8 +433,8 @@ def set_widgets_screen():
                 background=colors[0]
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.GenPollText(
                 update_interval=1,
@@ -443,8 +443,8 @@ def set_widgets_screen():
                 padding=15
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.Clock(
                 format="%H:%M",
@@ -452,8 +452,8 @@ def set_widgets_screen():
                 padding=15
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.Clock(
                 format="%d/%m/%Y",
@@ -461,8 +461,8 @@ def set_widgets_screen():
                 padding=15
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=10
                 ),
             widget.CurrentLayoutIcon(
                 background=colors[0],
@@ -471,8 +471,8 @@ def set_widgets_screen():
                 padding=10
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                padding=6
                 ),
             ]
 
@@ -482,15 +482,15 @@ def init_screens():
             Screen(
                 wallpaper="~/.config/qtile/wallpaper.png",
                 wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(), size=40)),
+                top=bar.Bar(widgets=set_widgets_screen(), size=36)),
             Screen(
                 wallpaper="~/.config/qtile/wallpaper.png",
                 wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(), size=40)),
+                top=bar.Bar(widgets=set_widgets_screen(), size=36)),
             Screen(
                 wallpaper="~/.config/qtile/wallpaper.png",
                 wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(), size=40)),
+                top=bar.Bar(widgets=set_widgets_screen(), size=36)),
             ]
 
 
@@ -521,7 +521,6 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        Match(title="Citrix Workspace"),
     ]
 )
 auto_fullscreen = True

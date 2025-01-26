@@ -183,7 +183,7 @@ keys = [
         desc="Open the bluetooth manager"
         ),
     Key([mod], "d",
-        lazy.spawn("rofi -dpi 120 -show run"),
+        lazy.spawn("rofi -dpi 96 -show run"),
         desc="Run Rofi"
         ),
     Key([mod], "f",

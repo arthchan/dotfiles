@@ -108,6 +108,15 @@ def get_network():
         return '󱐅'
 
 
+def check_vpn():
+    if int(os.popen("nmcli con show --active | grep wireguard | wc -l")
+           .read()) >= 1:
+        return ''
+
+    else:
+        return ''
+
+
 # Initialise assigned keys and applications
 mod = "mod4"
 terminal = "kitty"
@@ -183,7 +192,7 @@ keys = [
         desc="Open the bluetooth manager"
         ),
     Key([mod], "d",
-        lazy.spawn("rofi -dpi 96 -show run"),
+        lazy.spawn("rofi -show run"),
         desc="Run Rofi"
         ),
     Key([mod], "f",
@@ -425,7 +434,20 @@ def set_widgets_screen():
                 update_interval=1,
                 func=get_network,
                 background=colors[0],
-                padding=15
+                ),
+            widget.Sep(
+                linewidth=6,
+                foreground=colors[0],
+                background=colors[0]
+                ),
+            widget.Sep(
+                foreground=colors[1],
+                padding=10
+                ),
+            widget.GenPollText(
+                update_interval=5,
+                func=check_vpn,
+                background=colors[0],
                 ),
             widget.Sep(
                 linewidth=6,

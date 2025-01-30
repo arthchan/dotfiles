@@ -29,12 +29,8 @@ def get_volume():
         return "   ?%"
 
 
-bat_discharge_icon = ['󱃍', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹']
-bat_charge_icon = ['󰢟', '󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅']
-bat_empty_icon = '󱟩'
-bat_full_icon = '󰂄'
-bat_not_charging_icon = '󰂃'
-bat_unknown_icon = '󰂑'
+battery_icons = [['󰂎', '󱊡', '󱊢', '󱊣'], ['󰢟', '󱊤', '󱊥', '󱊦'], '󰂃', '󰂑']
+network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '󰤪'], '󰤮', '󰤫', '']
 
 
 def get_battery():
@@ -49,29 +45,29 @@ def get_battery():
                 "grep percentage | grep -o '[0-9]*'").read().strip("\n")
 
         if bat_s == "discharging":
-            i = round(int(bat_p), -1)//10
-            return "{} {:>3.0f}%".format(bat_discharge_icon[i], int(bat_p))
+            i = int(bat_p)//34 + 1
+            return "{} {:>3.0f}%".format(battery_icons[0][i], int(bat_p))
 
         elif bat_s == "charging":
-            i = round(int(bat_p), -1)//10
-            return "{} {:>3.0f}%".format(bat_charge_icon[i], int(bat_p))
+            i = int(bat_p)//34 + 1
+            return "{} {:>3.0f}%".format(battery_icons[1][i], int(bat_p))
 
         elif bat_s == "empty":
-            return "{}   0%".format(bat_empty_icon)
+            return "{}   0%".format(battery_icons[0][0])
 
         elif bat_s == "fully-charged":
-            return "{} {:>3.0f}%".format(bat_full_icon, int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[0][3], int(bat_p))
 
         elif bat_s == "pending-charge" or bat_s == "pending-discharge":
             if bat_p[0] == '0':
                 bat_p = '0'
-            return "{} {:>3.0f}%".format(bat_not_charging_icon, int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[2], int(bat_p))
 
         else:
-            return "{}   ?%".format(bat_unknown_icon)
+            return "{}   ?%".format(battery_icons[3])
 
     except BaseException:
-        return "{}   ?%".format(bat_unknown_icon)
+        return "{}   ?%".format(battery_icons[3])
 
 
 def get_network():
@@ -82,39 +78,36 @@ def get_network():
         out = [x.split(':') for x in out if x != '']
 
         if "enp" in out[0][1]:
-            return ''
+            return network_icons[4]
 
         elif "wlan0" in out[0][1]:
             quality = int(os.popen(
                 "nmcli -t -f IN-USE,SIGNAL device wifi | " +
                 "grep '*' | grep -o '[0-9]\\+'").read().split('\n')[0])
 
+            if int(os.popen("nmcli con show --active | grep wireguard | wc -l")
+                   .read()) >= 1:
+                i = 1
+            else:
+                i = 0
+
             if quality >= 60:
-                return '󰤨'
+                return network_icons[i][3]
 
             elif quality >= 40:
-                return '󰤥'
+                return network_icons[i][2]
 
             elif quality >= 20:
-                return '󰤢'
+                return network_icons[i][1]
 
             else:
-                return '󰤟'
+                return network_icons[i][0]
 
         else:
-            return '󰤮'
+            return network_icons[2]
 
     except BaseException:
-        return '󱐅'
-
-
-def check_vpn():
-    if int(os.popen("nmcli con show --active | grep wireguard | wc -l")
-           .read()) >= 1:
-        return ''
-
-    else:
-        return ''
+        return network_icons[3]
 
 
 # Initialise assigned keys and applications
@@ -397,23 +390,23 @@ def set_widgets_screen():
                 padding=10
                 ),
             widget.Sep(
-                linewidth=10,
-                foreground=colors[1]
+                foreground=colors[1],
+                linewidth=10
                 ),
             widget.GenPollText(
-                update_interval=0.1,
-                func=get_volume,
                 background=colors[0],
-                padding=15
+                func=get_volume,
+                padding=15,
+                update_interval=0.1
                 ),
             widget.Sep(
                 foreground=colors[1],
                 padding=10
                 ),
             widget.CPU(
-                format="{load_percent:>3.0f}%",
-                fmt=" {}",
                 background=colors[0],
+                fmt=" {}",
+                format="{load_percent:>3.0f}%",
                 padding=15
                 ),
             widget.Sep(
@@ -421,9 +414,9 @@ def set_widgets_screen():
                 padding=10
                 ),
             widget.Memory(
-                format="{MemPercent:>3.0f}%",
+                background=colors[0],
                 fmt=" {}",
-                background=colors[0],
+                format="{MemPercent:>3.0f}%",
                 padding=15
                 ),
             widget.Sep(
@@ -431,46 +424,32 @@ def set_widgets_screen():
                 padding=10
                 ),
             widget.GenPollText(
-                update_interval=1,
+                background=colors[0],
                 func=get_network,
-                background=colors[0],
+                update_interval=1
                 ),
             widget.Sep(
-                linewidth=6,
+                background=colors[0],
                 foreground=colors[0],
-                background=colors[0]
+                linewidth=6
                 ),
             widget.Sep(
                 foreground=colors[1],
                 padding=10
                 ),
             widget.GenPollText(
-                update_interval=5,
-                func=check_vpn,
                 background=colors[0],
-                ),
-            widget.Sep(
-                linewidth=6,
-                foreground=colors[0],
-                background=colors[0]
-                ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
-                ),
-            widget.GenPollText(
-                update_interval=1,
                 func=get_battery,
-                background=colors[0],
-                padding=15
+                padding=15,
+                update_interval=1
                 ),
             widget.Sep(
                 foreground=colors[1],
                 padding=10
                 ),
             widget.Clock(
+                background=colors[0],
                 format="%H:%M",
-                background=colors[0],
                 padding=15
                 ),
             widget.Sep(
@@ -478,8 +457,8 @@ def set_widgets_screen():
                 padding=10
                 ),
             widget.Clock(
-                format="%d/%m/%Y",
                 background=colors[0],
+                format="%d/%m/%Y",
                 padding=15
                 ),
             widget.Sep(
@@ -489,8 +468,8 @@ def set_widgets_screen():
             widget.CurrentLayoutIcon(
                 background=colors[0],
                 foreground=colors[2],
-                scale=0.5,
-                padding=10
+                padding=10,
+                scale=0.5
                 ),
             widget.Sep(
                 foreground=colors[1],

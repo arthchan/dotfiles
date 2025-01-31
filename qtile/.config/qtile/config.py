@@ -29,8 +29,14 @@ def get_volume():
         return "   ?%"
 
 
-battery_icons = [['󰂎', '󱊡', '󱊢', '󱊣'], ['󰢟', '󱊤', '󱊥', '󱊦'], '󰂃', '󰂑']
-network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '󰤪'], '󰤮', '󰤫', '']
+battery_icons = [
+        ['󰂎', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'],
+        ['󰢟', '󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'],
+        '󰂄', '󰂃', '󰂑']
+network_icons = [
+        ['󰤟', '󰤢', '󰤥', '󰤨'],
+        ['󰤡', '󰤤', '󰤧', '󰤪'],
+        '󰤮', '󰤫', '']
 
 
 def get_battery():
@@ -45,29 +51,29 @@ def get_battery():
                 "grep percentage | grep -o '[0-9]*'").read().strip("\n")
 
         if bat_s == "discharging":
-            i = int(bat_p)//34 + 1
+            i = round(int(bat_p), -1)//10
             return "{} {:>3.0f}%".format(battery_icons[0][i], int(bat_p))
 
         elif bat_s == "charging":
-            i = int(bat_p)//34 + 1
+            i = round(int(bat_p), -1)//10
             return "{} {:>3.0f}%".format(battery_icons[1][i], int(bat_p))
 
         elif bat_s == "empty":
             return "{}   0%".format(battery_icons[0][0])
 
         elif bat_s == "fully-charged":
-            return "{} {:>3.0f}%".format(battery_icons[0][3], int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[2], int(bat_p))
 
         elif bat_s == "pending-charge" or bat_s == "pending-discharge":
             if bat_p[0] == '0':
                 bat_p = '0'
-            return "{} {:>3.0f}%".format(battery_icons[2], int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[3], int(bat_p))
 
         else:
-            return "{}   ?%".format(battery_icons[3])
+            return "{}   ?%".format(battery_icons[4])
 
     except BaseException:
-        return "{}   ?%".format(battery_icons[3])
+        return "{}   ?%".format(battery_icons[4])
 
 
 def get_network():

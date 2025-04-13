@@ -30,6 +30,7 @@ return {
 			lspconfig.pylsp.setup({
 				capabilities = capabilities,
 			})
+			vim.diagnostic.config({ virtual_text = true })
 			vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { desc = "LSP: Format code" })
 			vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "LSP: Go to type definition" })
 			vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, { desc = "LSP: Display hover information" })

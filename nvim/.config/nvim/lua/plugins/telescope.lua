@@ -10,15 +10,15 @@ return {
 		opts = {},
 		config = function()
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Find files" })
-			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope: Find keymaps" })
-			vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Telescope: Find current word" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope: Find by grep" })
-			vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = "Telescope: List recent files" })
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope: List help tags" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope: List buffers" })
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Telescope: List diagnostics" })
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Find files" })
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope: Find by grep" })
+			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope: List help tags" })
+			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope: Find keymaps" })
 			vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Telescope: List results of previous picker" })
+			vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Telescope: Find current word" })
+			vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = "Telescope: List recent files" })
 		end,
 	},
 	{

@@ -24,8 +24,10 @@ return {
 			dap.listeners.before.event_exited.dapui_config = function()
 				dapui.close()
 			end
+			vim.diagnostic.config({ virtual_text = true })
 			vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle breakpoint" })
 			vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP: Continue" })
+			vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "DAP: Show diagnostics in a floating window" })
 		end,
 	},
 }

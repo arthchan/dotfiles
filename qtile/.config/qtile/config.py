@@ -182,10 +182,6 @@ keys = [
         lazy.spawn(terminal),
         desc="Launch terminal"
         ),
-    Key([mod], "a",
-        lazy.spawn(file_manager),
-        desc="Open the file manager"
-        ),
     Key([mod], "b",
         lazy.spawn(bluetooth_manager),
         desc="Open the bluetooth manager"
@@ -195,34 +191,32 @@ keys = [
         desc="Run Rofi"
         ),
     Key([mod], "f",
-        lazy.spawn("flameshot gui"),
-        desc="Run flameshot"
+        lazy.spawn(file_manager),
+        desc="Open the file manager"
         ),
     Key([mod], "i",
-        lazy.spawn(
-            terminal + " -e " +
-            network_manager),
-        desc="Open the network manager"
-        ),
-    Key([mod], "m",
         lazy.spawn(
             terminal + " --title=" + system_monitor + " -e " +
             system_monitor),
         desc="Open the system monitor"
         ),
+    Key([mod], "m",
+        lazy.spawn(music_player),
+        desc="Open the music player"
+        ),
     Key([mod], "n",
         lazy.spawn(
             terminal + " -e " +
-            text_editor),
-        desc="Open the text editor"
+            network_manager),
+        desc="Open the network manager"
         ),
     Key([mod], "o",
         lazy.spawn(pdf_editor),
         desc="Open the PDF editor"
         ),
     Key([mod], "s",
-        lazy.spawn(music_player),
-        desc="Open the music player"
+        lazy.spawn("flameshot gui"),
+        desc="Run flameshot"
         ),
     Key([mod], "v",
         lazy.spawn(volume_mixer),

@@ -125,7 +125,7 @@ file_manager = "nemo"
 bluetooth_manager = "blueberry"
 volume_mixer = "pavucontrol-qt"
 system_monitor = "htop"
-music_player = ".local/bin/cider-linux-x64.AppImage"
+music_player = "spotify-launcher"
 pdf_editor = "okular"
 text_editor = "nvim"
 network_manager = "nmtui"
@@ -481,15 +481,15 @@ def set_widgets_screen():
 def init_screens():
     return [
             Screen(
-                wallpaper="~/.config/qtile/wallpaper.png",
+                wallpaper="~/.config/qtile/wallpaper.jpg",
                 wallpaper_mode="fill",
                 top=bar.Bar(widgets=set_widgets_screen(), size=36)),
             Screen(
-                wallpaper="~/.config/qtile/wallpaper.png",
+                wallpaper="~/.config/qtile/wallpaper.jpg",
                 wallpaper_mode="fill",
                 top=bar.Bar(widgets=set_widgets_screen(), size=36)),
             Screen(
-                wallpaper="~/.config/qtile/wallpaper.png",
+                wallpaper="~/.config/qtile/wallpaper.jpg",
                 wallpaper_mode="fill",
                 top=bar.Bar(widgets=set_widgets_screen(), size=36)),
             ]

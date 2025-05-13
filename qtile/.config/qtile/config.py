@@ -218,6 +218,10 @@ keys = [
         lazy.spawn("flameshot gui"),
         desc="Run flameshot"
         ),
+    Key([mod], "t",
+        lazy.spawn(terminal),
+        desc="Launch terminal"
+        ),
     Key([mod], "v",
         lazy.spawn(volume_mixer),
         desc="Open the volume mixer"

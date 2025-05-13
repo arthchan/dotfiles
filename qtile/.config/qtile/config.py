@@ -2,6 +2,7 @@
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, KeyChord
 from libqtile.lazy import lazy
+import json
 import os
 
 
@@ -116,6 +117,21 @@ def get_network():
         return network_icons[3]
 
 
+def read_settings():
+    try:
+        with open("{}/.config/qtile/settings.json".format(
+            os.getenv("HOME")), "r") as f:
+            settings = json.load(f)
+
+    except FileNotFoundError:
+        with open("{}/.config/qtile/settings_default.json".format(
+            os.getenv("HOME")), "r") as f:
+            settings = json.load(f)
+
+    f.close()
+    return settings
+
+
 # Initialise assigned keys and applications
 mod = "mod4"
 terminal = "kitty"
@@ -129,6 +145,12 @@ music_player = "spotify-launcher"
 pdf_editor = "okular"
 text_editor = "nvim"
 network_manager = "nmtui"
+
+# Initialise other device-specific variables
+settings = read_settings()
+qtile_bar_size = settings["qtile_bar_size"]
+qtile_font_size = settings["qtile_font_size"]
+rofi_dpi = str(settings["rofi_dpi"])
 
 keys = [
     # [mod] + [key]
@@ -187,7 +209,7 @@ keys = [
         desc="Open the bluetooth manager"
         ),
     Key([mod], "d",
-        lazy.spawn("rofi -show run"),
+        lazy.spawn("rofi -show run -dpi " + rofi_dpi),
         desc="Run Rofi"
         ),
     Key([mod], "f",
@@ -369,7 +391,7 @@ colors = ["#000000", "#181a1f", "#ffffff", "#51afef"]
 
 widget_defaults = dict(
     font="FiraCode Nerd Font",
-    fontsize=20,
+    fontsize=qtile_font_size,
     background=colors[1],
 )
 
@@ -487,15 +509,18 @@ def init_screens():
             Screen(
                 wallpaper="~/.config/qtile/wallpaper.jpg",
                 wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(), size=36)),
+                top=bar.Bar(widgets=set_widgets_screen(),
+                            size=qtile_bar_size)),
             Screen(
                 wallpaper="~/.config/qtile/wallpaper.jpg",
                 wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(), size=36)),
+                top=bar.Bar(widgets=set_widgets_screen(),
+                            size=qtile_bar_size)),
             Screen(
                 wallpaper="~/.config/qtile/wallpaper.jpg",
                 wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(), size=36)),
+                top=bar.Bar(widgets=set_widgets_screen(),
+                            size=qtile_bar_size)),
             ]
 
 

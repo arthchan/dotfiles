@@ -236,10 +236,6 @@ keys = [
         lazy.spawn(pdf_editor),
         desc="Open the PDF editor"
         ),
-    Key([mod], "s",
-        lazy.spawn("flameshot gui"),
-        desc="Run flameshot"
-        ),
     Key([mod], "t",
         lazy.spawn(terminal),
         desc="Launch terminal"
@@ -311,6 +307,10 @@ keys = [
     Key([mod, "shift"], "f",
         lazy.window.toggle_floating(),
         desc="Toggle floating"
+        ),
+    Key([mod, "shift"], "s",
+        lazy.spawn("flameshot gui"),
+        desc="Run flameshot"
         ),
     Key([mod, "shift"], "space",
         lazy.layout.toggle_split(),

@@ -478,7 +478,7 @@ def set_widgets_screen():
                 ),
             widget.Clock(
                 background=colors[0],
-                format="%d/%m/%Y",
+                format="%d-%m-%Y",
                 padding=15
                 ),
             widget.Sep(

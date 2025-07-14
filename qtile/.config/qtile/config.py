@@ -30,14 +30,8 @@ def get_volume():
         return "   ?%"
 
 
-battery_icons = [
-        ['󰂎', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'],
-        ['󰢟', '󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'],
-        '󰂄', '󰂃', '󰂑']
-network_icons = [
-        ['󰤟', '󰤢', '󰤥', '󰤨'],
-        ['󰤡', '󰤤', '󰤧', '󰤪'],
-        '󰤮', '󰤫', '']
+battery_icons = [['', '', '', '', ''], '']
+network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '󰤪'], '󰤮', '󰤫', '']
 
 
 def get_battery():
@@ -52,29 +46,28 @@ def get_battery():
                 "grep percentage | grep -o '[0-9]*'").read().strip("\n")
 
         if bat_s == "discharging":
-            i = round(int(bat_p), -1)//10
+            i = int(round(int(bat_p)/25))
             return "{} {:>3.0f}%".format(battery_icons[0][i], int(bat_p))
 
         elif bat_s == "charging":
-            i = round(int(bat_p), -1)//10
-            return "{} {:>3.0f}%".format(battery_icons[1][i], int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[1], int(bat_p))
 
         elif bat_s == "empty":
             return "{}   0%".format(battery_icons[0][0])
 
         elif bat_s == "fully-charged":
-            return "{} {:>3.0f}%".format(battery_icons[2], int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[0][4], int(bat_p))
 
         elif bat_s == "pending-charge" or bat_s == "pending-discharge":
             if bat_p[0] == '0':
                 bat_p = '0'
-            return "{} {:>3.0f}%".format(battery_icons[3], int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[0][0], int(bat_p))
 
         else:
-            return "{}   ?%".format(battery_icons[4])
+            return "{}   ?%".format(battery_icons[0][0])
 
     except BaseException:
-        return "{}   ?%".format(battery_icons[4])
+        return "{}   ?%".format(battery_icons[0][0])
 
 
 def get_network():
@@ -374,7 +367,7 @@ layout_theme = {"border_width": 3,
 
 layouts = [
     layout.Columns(**layout_theme, border_on_single=True),
-    layout.Max(**layout_theme),
+    # layout.Max(**layout_theme),
     # layout.MonadTall(**layout_theme),
     # layout.Stack(num_stacks=2),
     # layout.RatioTile(**layout_theme),
@@ -390,7 +383,7 @@ layouts = [
 colors = ["#000000", "#181a1f", "#ffffff", "#51afef"]
 
 widget_defaults = dict(
-    font="FiraCode Nerd Font",
+    font="mono",
     fontsize=qtile_font_size,
     background=colors[1],
 )
@@ -486,16 +479,6 @@ def set_widgets_screen():
                 background=colors[0],
                 format="%d/%m/%Y",
                 padding=15
-                ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
-                ),
-            widget.CurrentLayoutIcon(
-                background=colors[0],
-                foreground=colors[2],
-                padding=10,
-                scale=0.5
                 ),
             widget.Sep(
                 foreground=colors[1],

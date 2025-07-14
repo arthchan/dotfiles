@@ -399,6 +399,7 @@ def set_widgets_screen():
                 active=colors[3],
                 disable_drag=True,
                 highlight_method="border",
+                margin=4,
                 padding=3
                 ),
             widget.Sep(

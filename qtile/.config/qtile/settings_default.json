@@ -1,5 +1,5 @@
 {
-	"qtile_bar_size": 40,
-	"qtile_font_size": 20,
+	"qtile_bar_size": 36,
+	"qtile_font_size": 18,
 	"rofi_dpi": 96
 }

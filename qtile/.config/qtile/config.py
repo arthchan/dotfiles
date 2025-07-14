@@ -56,7 +56,7 @@ def get_battery():
             return "{}   0%".format(battery_icons[0][0])
 
         elif bat_s == "fully-charged":
-            return "{} {:>3.0f}%".format(battery_icons[0][4], int(bat_p))
+            return "{} {:>3.0f}%".format(battery_icons[1], int(bat_p))
 
         elif bat_s == "pending-charge" or bat_s == "pending-discharge":
             if bat_p[0] == '0':
@@ -469,16 +469,8 @@ def set_widgets_screen():
                 ),
             widget.Clock(
                 background=colors[0],
-                format="%H:%M",
-                padding=15
-                ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
-                ),
-            widget.Clock(
-                background=colors[0],
-                format="%d-%m-%Y",
+                fmt="󰃰 {}",
+                format="%d-%m-%Y %H:%M:%S",
                 padding=15
                 ),
             widget.Sep(

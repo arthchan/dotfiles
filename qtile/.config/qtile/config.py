@@ -367,7 +367,7 @@ layout_theme = {"border_width": 3,
 
 layouts = [
     layout.Columns(**layout_theme, border_on_single=True),
-    # layout.Max(**layout_theme),
+    layout.Max(**layout_theme),
     # layout.MonadTall(**layout_theme),
     # layout.Stack(num_stacks=2),
     # layout.RatioTile(**layout_theme),
@@ -383,7 +383,7 @@ layouts = [
 colors = ["#000000", "#181a1f", "#ffffff", "#51afef"]
 
 widget_defaults = dict(
-    font="mono",
+    font="FiraCode Nerd Font, Sarasa Mono TC",
     fontsize=qtile_font_size,
     background=colors[1],
 )
@@ -391,15 +391,14 @@ widget_defaults = dict(
 
 def set_widgets_screen():
     return [
-            widget.Sep(
-                foreground=colors[1],
-                padding=3
+            widget.Spacer(
+                background=colors[1],
+                length=3
                 ),
             widget.GroupBox(
                 active=colors[3],
                 disable_drag=True,
                 highlight_method="border",
-                margin=4,
                 padding=3
                 ),
             widget.Sep(
@@ -409,73 +408,93 @@ def set_widgets_screen():
                 foreground=colors[3],
                 padding=10
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                linewidth=10
+            widget.Spacer(
+                background=colors[1],
+                length=10
                 ),
             widget.GenPollText(
                 background=colors[0],
                 func=get_volume,
-                padding=15,
+                padding=16,
                 update_interval=0.1
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
+            widget.Spacer(
+                background=colors[1],
+                length=10
                 ),
             widget.CPU(
                 background=colors[0],
                 fmt=" {}",
                 format="{load_percent:>3.0f}%",
-                padding=15
+                padding=16
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
+            widget.Spacer(
+                background=colors[1],
+                length=10
                 ),
             widget.Memory(
                 background=colors[0],
                 fmt=" {}",
                 format="{MemPercent:>3.0f}%",
-                padding=15
+                padding=16
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
+            widget.Spacer(
+                background=colors[1],
+                length=10
                 ),
             widget.GenPollText(
                 background=colors[0],
                 func=get_network,
                 update_interval=1
                 ),
-            widget.Sep(
+            widget.Spacer(
                 background=colors[0],
-                foreground=colors[0],
-                linewidth=6
+                length=6
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
+            widget.Spacer(
+                background=colors[1],
+                length=10
                 ),
             widget.GenPollText(
                 background=colors[0],
                 func=get_battery,
-                padding=15,
+                padding=16,
                 update_interval=1
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=10
+            widget.Spacer(
+                background=colors[1],
+                length=10
+                ),
+            widget.Spacer(
+                background=colors[0],
+                length=0
+                ),
+            widget.TextBox(
+                background=colors[0],
+                fmt="󰃰",
+                padding=16
                 ),
             widget.Clock(
                 background=colors[0],
-                fmt="󰃰 {}",
                 format="%d-%m-%Y %H:%M:%S",
-                padding=15
+                padding=2
                 ),
-            widget.Sep(
-                foreground=colors[1],
-                padding=6
+            widget.Spacer(
+                background=colors[0],
+                length=12
+                ),
+            widget.Spacer(
+                background=colors[1],
+                length=10
+                ),
+            widget.CurrentLayoutIcon(
+                background=colors[0],
+                padding=10,
+                scale=0.5
+                ),
+            widget.Spacer(
+                background=colors[1],
+                length=6
                 ),
             ]
 

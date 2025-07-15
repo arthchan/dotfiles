@@ -446,7 +446,7 @@ def set_widgets_screen():
                 background=colors[0],
                 display_format="󱑢",
                 distro="Arch_yay",
-                fontsize=qtile_font_size + 4,
+                fontsize=qtile_font_size + 3,
                 initial_text="󰅗",
                 no_update_string="󰄵",
                 padding=12

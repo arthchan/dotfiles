@@ -449,7 +449,8 @@ def set_widgets_screen():
                 fontsize=qtile_font_size + 3,
                 initial_text="󰅘",
                 no_update_string="󰄵",
-                padding=12
+                padding=12,
+                update_interval=3600
                 ),
             widget.Spacer(
                 background=colors[0],

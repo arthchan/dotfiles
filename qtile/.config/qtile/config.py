@@ -442,14 +442,32 @@ def set_widgets_screen():
                 background=colors[1],
                 length=10
                 ),
+            widget.CheckUpdates(
+                background=colors[0],
+                display_format="󱑢",
+                distro="Arch_yay",
+                fontsize=qtile_font_size + 4,
+                initial_text="󰅗",
+                no_update_string="󰄵",
+                padding=12
+                ),
+            widget.Spacer(
+                background=colors[0],
+                length=3
+                ),
+            widget.Spacer(
+                background=colors[1],
+                length=10
+                ),
             widget.GenPollText(
                 background=colors[0],
+                fontsize=qtile_font_size + 1,
                 func=get_network,
                 update_interval=1
                 ),
             widget.Spacer(
                 background=colors[0],
-                length=6
+                length=8
                 ),
             widget.Spacer(
                 background=colors[1],
@@ -472,6 +490,7 @@ def set_widgets_screen():
             widget.TextBox(
                 background=colors[0],
                 fmt="󰃰",
+                fontsize=qtile_font_size + 2,
                 padding=16
                 ),
             widget.Clock(

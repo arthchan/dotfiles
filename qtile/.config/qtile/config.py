@@ -127,17 +127,14 @@ def read_settings():
 
 # Initialise assigned keys and applications
 mod = "mod4"
-terminal = "kitty"
-web_browser = "brave"
-web_browser_2 = "qutebrowser"
-file_manager = "nemo"
 bluetooth_manager = "blueberry"
-volume_mixer = "pavucontrol-qt"
-system_monitor = "htop"
+file_manager = "nemo"
 music_player = "spotify-launcher"
-pdf_editor = "okular"
-text_editor = "nvim"
 network_manager = "nmtui"
+system_monitor = "htop"
+terminal = "kitty"
+volume_mixer = "pavucontrol-qt"
+web_browser = "brave"
 
 # Initialise other device-specific variables
 settings = read_settings()
@@ -189,57 +186,53 @@ keys = [
         ),
     # Lock screen
     Key([mod], "escape",
-        lazy.spawn("dm-tool lock"),
-        desc="Switch to Lightdm greeter"
+        lazy.spawn("light-locker-command -l"),
+        desc="Lock screen"
         ),
     # Launch applications
     Key([mod], "return",
         lazy.spawn(terminal),
-        desc="Launch terminal"
+        desc="Launch the terminal"
         ),
     Key([mod], "b",
         lazy.spawn(bluetooth_manager),
-        desc="Open the bluetooth manager"
+        desc="Launch the bluetooth manager"
         ),
     Key([mod], "d",
         lazy.spawn("rofi -show run -dpi " + rofi_dpi),
-        desc="Run Rofi"
+        desc="Launch the application menu"
         ),
     Key([mod], "f",
         lazy.spawn(file_manager),
-        desc="Open the file manager"
+        desc="Launch the file manager"
         ),
     Key([mod], "i",
         lazy.spawn(
             terminal + " --title=" + system_monitor + " -e " +
             system_monitor),
-        desc="Open the system monitor"
+        desc="Launch the system monitor"
         ),
     Key([mod], "m",
         lazy.spawn(music_player),
-        desc="Open the music player"
+        desc="Launch the music player"
         ),
     Key([mod], "n",
         lazy.spawn(
             terminal + " -e " +
             network_manager),
-        desc="Open the network manager"
-        ),
-    Key([mod], "o",
-        lazy.spawn(pdf_editor),
-        desc="Open the PDF editor"
+        desc="Launch the network manager"
         ),
     Key([mod], "t",
         lazy.spawn(terminal),
-        desc="Launch terminal"
+        desc="Launch the terminal"
         ),
     Key([mod], "v",
         lazy.spawn(volume_mixer),
-        desc="Open the volume mixer"
+        desc="Launch the volume mixer"
         ),
     Key([mod], "w",
         lazy.spawn(web_browser),
-        desc="Open the web browser"
+        desc="Launch the web browser"
         ),
     # [mod] + [ctl] + [key]
     # Change window size
@@ -303,20 +296,11 @@ keys = [
         ),
     Key([mod, "shift"], "s",
         lazy.spawn("flameshot gui"),
-        desc="Run flameshot"
+        desc="Take screenshot"
         ),
     Key([mod, "shift"], "space",
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"
-        ),
-    # Lauch alternative applications
-    Key([mod, "shift"], "return",
-        lazy.spawn(terminal),
-        desc="Launch alternative terminal"
-        ),
-    Key([mod, "shift"], "w",
-        lazy.spawn(web_browser_2),
-        desc="Launch alternative web browser"
         ),
     # [mod] + [key] + [key] + [key]
     # Reboot or shutdown
@@ -442,24 +426,6 @@ def set_widgets_screen():
                 background=colors[1],
                 length=10
                 ),
-            widget.CheckUpdates(
-                background=colors[0],
-                display_format="󱑢",
-                distro="Arch_yay",
-                fontsize=qtile_font_size + 3,
-                initial_text="󰅘",
-                no_update_string="󰄵",
-                padding=12,
-                update_interval=3600
-                ),
-            widget.Spacer(
-                background=colors[0],
-                length=3
-                ),
-            widget.Spacer(
-                background=colors[1],
-                length=10
-                ),
             widget.GenPollText(
                 background=colors[0],
                 fontsize=qtile_font_size + 1,
@@ -486,18 +452,18 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[0],
-                length=0
+                length=16
                 ),
             widget.TextBox(
                 background=colors[0],
-                fmt="󰃰",
+                fmt="󰃰 ",
                 fontsize=qtile_font_size + 2,
-                padding=16
+                padding=0
                 ),
             widget.Clock(
                 background=colors[0],
                 format="%d-%m-%Y %H:%M:%S",
-                padding=2
+                padding=1
                 ),
             widget.Spacer(
                 background=colors[0],

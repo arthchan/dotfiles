@@ -18,13 +18,18 @@ def center_floating_window(window):
 def get_volume():
     try:
         vol = os.popen("pamixer --get-volume-human").read()
+        src = os.popen("pamixer --get-default-sink").read()
 
         if '%' not in vol:
+            if "Headphones" in src or "AirPods" in src:
+                return "<span size='105%'>󱡐</span> {:>3.0f}%".format(0)
             return " {:>3.0f}%".format(0)
 
         else:
             vol = int(vol.split('%')[0])
-            return " {:>3.0f}%".format(vol)
+            if "Headphones" in src or "AirPods" in src:
+                return "<span size='105%'>󱡏</span> {:>3.0f}%".format(vol)
+            return " {:>3.0f}%".format(vol)
 
     except BaseException:
         return "   ?%"
@@ -44,30 +49,46 @@ def get_battery():
         bat_p = os.popen(
                 "upower -i " + bat + " | " +
                 "grep percentage | grep -o '[0-9]*'").read().strip("\n")
+        bat_p_int = int(bat_p)
 
         if bat_s == "discharging":
-            i = int(round(int(bat_p)/25))
-            return "{} {:>3.0f}%".format(battery_icons[0][i], int(bat_p))
+            i = int(round(bat_p_int/25))
+            if i == 0:
+                return "<span foreground='#ff0000'>{}</span> {:>3.0f}%".format(
+                        battery_icons[0][i], bat_p_int)
+            elif bat_p_int <= 20:
+                return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
+                        battery_icons[0][i], bat_p_int)
+            else:
+                return "<span foreground='#ffffff'>{}</span> {:>3.0f}%".format(
+                        battery_icons[0][i], bat_p_int)
 
         elif bat_s == "charging":
-            return "{} {:>3.0f}%".format(battery_icons[1], int(bat_p))
+            i = int(round(bat_p_int/25))
+            return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
+                    battery_icons[1], bat_p_int)
 
         elif bat_s == "empty":
-            return "{}   0%".format(battery_icons[0][0])
+            return "<span foreground='#808080'>{}</span>   0%".format(
+                    battery_icons[0][0])
 
         elif bat_s == "fully-charged":
-            return "{} {:>3.0f}%".format(battery_icons[1], int(bat_p))
+            return "<span foreground='#00ff00'>{}</span> {:>3.0f}%".format(
+                    battery_icons[1], bat_p_int)
 
         elif bat_s == "pending-charge" or bat_s == "pending-discharge":
             if bat_p[0] == '0':
                 bat_p = '0'
-            return "{} {:>3.0f}%".format(battery_icons[0][0], int(bat_p))
+            return "<span foreground='#808080'>{}</span> {:>3.0f}%".format(
+                    battery_icons[0][0], int(bat_p))
 
         else:
-            return "{}   ?%".format(battery_icons[0][0])
+            return "<span foreground='#808080>{}</span>   ?%".format(
+                    battery_icons[0][0])
 
     except BaseException:
-        return "{}   ?%".format(battery_icons[0][0])
+        return "<span foreground='#808080>{}</span>   ?%".format(
+                battery_icons[0][0])
 
 
 def get_network():
@@ -463,11 +484,11 @@ def set_widgets_screen():
             widget.Clock(
                 background=colors[0],
                 format="%Y-%m-%d %H:%M:%S",
-                padding=1
+                padding=2
                 ),
             widget.Spacer(
                 background=colors[0],
-                length=12
+                length=10
                 ),
             widget.Spacer(
                 background=colors[1],

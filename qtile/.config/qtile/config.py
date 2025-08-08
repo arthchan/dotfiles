@@ -52,7 +52,7 @@ def get_battery():
         bat_p_int = int(bat_p)
 
         if bat_s == "discharging":
-            i = int(round(bat_p_int/25))
+            i = int(round((bat_p_int+2)/25))
             if i == 0:
                 return "<span foreground='#ff0000'>{}</span> {:>3.0f}%".format(
                         battery_icons[0][i], bat_p_int)
@@ -64,7 +64,6 @@ def get_battery():
                         battery_icons[0][i], bat_p_int)
 
         elif bat_s == "charging":
-            i = int(round(bat_p_int/25))
             return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], bat_p_int)
 
@@ -403,8 +402,10 @@ def set_widgets_screen():
             widget.GroupBox(
                 active=colors[3],
                 disable_drag=True,
-                highlight_method="border",
-                padding=3
+                highlight_method="line",
+                padding=3,
+                this_current_screen_border=colors[3],
+                this_screen_border=colors[3]
                 ),
             widget.Sep(
                 padding=10
@@ -494,8 +495,9 @@ def set_widgets_screen():
                 background=colors[1],
                 length=10
                 ),
-            widget.CurrentLayoutIcon(
+            widget.CurrentLayout(
                 background=colors[0],
+                mode="icon",
                 padding=10,
                 scale=0.5
                 ),

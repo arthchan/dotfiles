@@ -484,7 +484,7 @@ def set_widgets_screen():
                 ),
             widget.Clock(
                 background=colors[0],
-                format="%Y-%m-%d %H:%M:%S",
+                format="%Y-%m-%d %H:%M",
                 padding=2
                 ),
             widget.Spacer(

@@ -1,5 +1,5 @@
 -- Require modules
-require("autocmds")
-require("keymaps")
 require("options")
+require("keymaps")
+require("autocmds")
 require("config.lazy")

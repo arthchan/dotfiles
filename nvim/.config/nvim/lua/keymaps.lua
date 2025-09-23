@@ -26,3 +26,15 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move highlighted line up"
 -- Indent highlighted line left and right
 vim.keymap.set("v", "<", "<gv", { desc = "Indent highlighted line to the left" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent highlighted line to the right" })
+
+-- LSP keymaps
+vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "LSP: Execute code action" })
+vim.keymap.set("n", "<leader>lc", vim.lsp.buf.declaration, { desc = "LSP: Go to declaration" })
+vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "LSP: Go to definition" })
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "LSP: Format code" })
+vim.keymap.set("n", "<leader>lh", vim.lsp.buf.rename, { desc = "LSP: Rename variable" })
+vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, { desc = "LSP: Go to implementation" })
+vim.keymap.set("n", "<leader>lk", vim.lsp.buf.hover, { desc = "LSP: Display hover information" })
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, { desc = "LSP: Go to references" })
+vim.keymap.set("n", "<leader>ls", vim.lsp.buf.workspace_symbol, { desc = "LSP: Search workspace symbols" })
+vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "LSP: Go to type definition" })

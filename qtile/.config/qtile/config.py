@@ -4,11 +4,19 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen, KeyChord
 from libqtile.lazy import lazy
 import json
 import os
+import subprocess
+
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.call(home)
 
 
 @hook.subscribe.client_new
 def center_floating_window(window):
-    if window.name in ["Bluetooth"]:
+    if window.name in ["Bluetooth Manager", "Network Manager",
+                       "System Monitor"]:
         window.floating = True
         window.set_size_floating(1200, 800)
         window.center()
@@ -147,7 +155,7 @@ def read_settings():
 
 # Initialise assigned keys and applications
 mod = "mod4"
-bluetooth_manager = "blueberry"
+bluetooth_manager = "bluetui"
 file_manager = "nemo"
 music_player = "spotify-launcher"
 network_manager = "nmtui"
@@ -215,7 +223,8 @@ keys = [
         desc="Launch the terminal"
         ),
     Key([mod], "b",
-        lazy.spawn(bluetooth_manager),
+        lazy.spawn(terminal + " --title=Bluetooth\ Manager" + " -e " +
+                   bluetooth_manager),
         desc="Launch the bluetooth manager"
         ),
     Key([mod], "d",
@@ -228,7 +237,7 @@ keys = [
         ),
     Key([mod], "i",
         lazy.spawn(
-            terminal + " --title=" + system_monitor + " -e " +
+            terminal + " --title=System\ Monitor" + " -e " +
             system_monitor),
         desc="Launch the system monitor"
         ),
@@ -238,7 +247,7 @@ keys = [
         ),
     Key([mod], "n",
         lazy.spawn(
-            terminal + " -e " +
+            terminal + " --title=Network\ Manager" + " -e " +
             network_manager),
         desc="Launch the network manager"
         ),
@@ -326,8 +335,8 @@ keys = [
     # Reboot or shutdown
     KeyChord([mod], "x", [
         KeyChord([], "u", [
-            Key([], "r", lazy.spawn("systemctl reboot --no-wall")),
-            Key([], "u", lazy.spawn("systemctl poweroff --no-wall"))
+            Key([], "r", lazy.spawn("systemctl --no-wall reboot")),
+            Key([], "u", lazy.spawn("systemctl --no-wall poweroff"))
         ])
     ],
              mode=True,

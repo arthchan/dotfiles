@@ -1,6 +1,3 @@
-autorandr -c &
-fcitx5 &
+dex -a &
 flameshot &
-light-locker --lock-after-screensaver=0 &
-picom &
 xbindkeys

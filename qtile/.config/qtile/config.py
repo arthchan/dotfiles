@@ -54,10 +54,10 @@ def get_battery():
 
         if bat_s == "discharging":
             i = int(round((bat_p_int+2)/25))
-            if i == 0:
+            if bat_p_int <= 5:
                 return "<span foreground='#ff0000'>{}</span> {:>3.0f}%".format(
                         battery_icons[0][i], bat_p_int)
-            elif bat_p_int <= 20:
+            elif bat_p_int <= 10:
                 return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
                         battery_icons[0][i], bat_p_int)
             else:

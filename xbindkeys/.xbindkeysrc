@@ -1,0 +1,39 @@
+# Increase volume
+"pamixer -i 1"
+  XF86AudioRaiseVolume
+
+# Decrease volume
+"pamixer -d 1"
+  XF86AudioLowerVolume
+
+# Mute volume
+"pamixer -t"
+  XF86AudioMute
+
+# Mute microphone
+"pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+  XF86AudioMicMute
+
+# Toggle audio play and pause
+"playerctl play-pause"
+  XF86AudioPlay
+
+# Skip to the next track
+"playerctl next"
+  XF86AudioNext
+
+# Skip to the previous track
+"playerctl previous"
+  XF86AudioPrev
+
+# Decrease screen brightness
+"brightnessctl --class='backlight' --min-value=1 -e set 5%-"
+  XF86MonBrightnessDown
+
+# Increase screen brightness
+"brightnessctl --class='backlight' --min-value=1 -e set +5%"
+  XF86MonBrightnessUp
+
+# Open ARandR
+"arandr"
+  Mod4 + p

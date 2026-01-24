@@ -325,15 +325,16 @@ keys = [
         desc="Toggle between split and unsplit sides of stack"
         ),
     # [mod] + [key] + [key] + [key]
-    # Reboot or shutdown
+    # Reboot, shutdown or hibernate
     KeyChord([mod], "x", [
         KeyChord([], "u", [
             Key([], "r", lazy.spawn("systemctl --no-wall reboot")),
-            Key([], "u", lazy.spawn("systemctl --no-wall poweroff"))
+            Key([], "u", lazy.spawn("systemctl --no-wall poweroff")),
+            Key([], "s", lazy.spawn("systemctl --no-wall hibernate"))
         ])
     ],
              mode=True,
-             desc="Reboot or shutdown"
+             desc="Reboot, shutdown or hibernate"
              )
 ]
 

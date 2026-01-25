@@ -186,10 +186,10 @@ keys = [
         lazy.layout.next(),
         desc="Move window focus to other window"
         ),
-    # Toggle between layouts
+    # Switch to next group
     Key([mod], "Tab",
-        lazy.next_layout(),
-        desc="Toggle between layouts"
+        lazy.screen.next_group(),
+        desc="Swtch to next group"
         ),
     # Kill focused window
     Key([mod], "q",
@@ -204,6 +204,15 @@ keys = [
     Key([mod], "period",
         lazy.next_screen(),
         desc="Move focus to next screen"
+        ),
+    # Switch layouts
+    Key([mod], "equal",
+        lazy.next_layout(),
+        desc="Switch to next layout"
+        ),
+    Key([mod], "minus",
+        lazy.prev_layout(),
+        desc="Switch to previous layout"
         ),
     # Lock screen
     Key([mod], "escape",
@@ -283,11 +292,6 @@ keys = [
         lazy.reload_config(),
         desc="Reload the config"
         ),
-    # Shutdown
-    Key([mod, "control"], "q",
-        lazy.shutdown(),
-        desc="Shutdown Qtile"
-        ),
     # Toggle fullscreen
     Key([mod, "control"], "f",
         lazy.window.toggle_fullscreen(),
@@ -316,25 +320,32 @@ keys = [
         lazy.window.toggle_floating(),
         desc="Toggle floating"
         ),
-    Key([mod, "shift"], "s",
-        lazy.spawn("flameshot gui"),
-        desc="Take screenshot"
-        ),
     Key([mod, "shift"], "space",
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"
         ),
+    # Switch to previous group
+    Key([mod, "shift"], "Tab",
+        lazy.screen.prev_group(),
+        desc="Swtch to previous group"
+        ),
+    # Take screenshot
+    Key([mod, "shift"], "s",
+        lazy.spawn("flameshot gui"),
+        desc="Take screenshot"
+        ),
     # [mod] + [key] + [key] + [key]
-    # Reboot, shutdown or hibernate
+    # Sign out, reboot, hibernate, or shutdown
     KeyChord([mod], "x", [
         KeyChord([], "u", [
+            Key([], "i", lazy.shutdown()),
             Key([], "r", lazy.spawn("systemctl --no-wall reboot")),
-            Key([], "u", lazy.spawn("systemctl --no-wall poweroff")),
-            Key([], "s", lazy.spawn("systemctl --no-wall hibernate"))
+            Key([], "s", lazy.spawn("systemctl --no-wall hibernate")),
+            Key([], "u", lazy.spawn("systemctl --no-wall poweroff"))
         ])
     ],
-             mode=True,
-             desc="Reboot, shutdown or hibernate"
+             mode=False,
+             desc="Sign out, reboot, hibernate, or shutdown"
              )
 ]
 
@@ -375,12 +386,12 @@ layout_theme = {"border_width": 3,
 layouts = [
     layout.Columns(**layout_theme, border_on_single=True),
     layout.Max(**layout_theme),
-    # layout.MonadTall(**layout_theme),
     # layout.Stack(num_stacks=2),
-    # layout.RatioTile(**layout_theme),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadWide(),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.RatioTile(**layout_theme),
     # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),

@@ -1,4 +1,5 @@
 {
+	"battery_name": "BAT0",
 	"qtile_bar_size": 36,
 	"qtile_font_size": 20,
 	"rofi_dpi": 96

@@ -42,7 +42,8 @@ network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '�
 
 def get_battery():
     try:
-        bat = os.popen("upower -e | grep battery").read().strip("\n")
+        bat = os.popen(
+                "upower -e | grep battery_" + battery_name).read().strip("\n")
 
         bat_s = os.popen(
                 "upower -i " + bat + " | " +
@@ -162,6 +163,7 @@ settings = read_settings()
 qtile_bar_size = settings["qtile_bar_size"]
 qtile_font_size = settings["qtile_font_size"]
 rofi_dpi = str(settings["rofi_dpi"])
+battery_name = settings["battery_name"]
 
 keys = [
     # [mod] + [key]
@@ -417,9 +419,11 @@ def set_widgets_screen():
                 active=colors[3],
                 disable_drag=True,
                 highlight_method="line",
+                mouse_callbacks={"Button1": lambda: None},
                 padding=3,
                 this_current_screen_border=colors[3],
-                this_screen_border=colors[3]
+                this_screen_border=colors[3],
+                use_mouse_wheel=False
                 ),
             widget.Sep(
                 padding=10
@@ -512,6 +516,9 @@ def set_widgets_screen():
             widget.CurrentLayout(
                 background=colors[0],
                 mode="icon",
+                mouse_callbacks={"Button1": lambda: None,
+                                 "Button2": lambda: None,
+                                 "Button3": lambda: None},
                 padding=10,
                 scale=0.5
                 ),
@@ -557,6 +564,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
+floats_kept_above = True
 cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
@@ -575,6 +583,7 @@ floating_layout = layout.Floating(
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+focus_previous_on_window_remove = False
 reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing

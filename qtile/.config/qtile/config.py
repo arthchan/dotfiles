@@ -42,32 +42,29 @@ network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '�
 
 def get_battery():
     try:
-        bat = os.popen(
-                "upower -e | grep battery_" + battery_name).read().strip("\n")
-
         bat_s = os.popen(
-                "upower -i " + bat + " | " +
+                "upower -i " + battery_name + " | " +
                 "grep state | cut -d ':' -f2 | xargs").read().strip("\n")
-        bat_p = os.popen(
-                "upower -i " + bat + " | " +
-                "grep percentage | grep -o '[0-9]*'").read().strip("\n")
-        bat_p_int = int(bat_p)
+
+        bat_p = int(os.popen(
+                "upower -i " + battery_name + " | " +
+                "grep percentage | grep -o '[0-9]*'").read().strip("\n"))
 
         if bat_s == "discharging":
-            i = int(round((bat_p_int+2)/25))
-            if bat_p_int <= 5:
+            i = int(round((bat_p+2)/25))
+            if bat_p <= 5:
                 return "<span foreground='#ff0000'>{}</span> {:>3.0f}%".format(
-                        battery_icons[0][i], bat_p_int)
-            elif bat_p_int <= 10:
+                        battery_icons[0][i], bat_p)
+            elif bat_p <= 10:
                 return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
-                        battery_icons[0][i], bat_p_int)
+                        battery_icons[0][i], bat_p)
             else:
                 return "<span foreground='#ffffff'>{}</span> {:>3.0f}%".format(
-                        battery_icons[0][i], bat_p_int)
+                        battery_icons[0][i], bat_p)
 
         elif bat_s == "charging":
             return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
-                    battery_icons[1], bat_p_int)
+                    battery_icons[1], bat_p)
 
         elif bat_s == "empty":
             return "<span foreground='#808080'>{}</span>   0%".format(
@@ -78,10 +75,8 @@ def get_battery():
                     battery_icons[1], 100)
 
         elif bat_s == "pending-charge" or bat_s == "pending-discharge":
-            if bat_p[0] == '0':
-                bat_p = '0'
             return "<span foreground='#808080'>{}</span> {:>3.0f}%".format(
-                    battery_icons[0][0], int(bat_p))
+                    battery_icons[0][0], bat_p)
 
         else:
             return "<span foreground='#808080>{}</span>   ?%".format(

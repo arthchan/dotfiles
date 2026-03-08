@@ -43,14 +43,12 @@ network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '�
 def get_battery():
     try:
         bat_s = os.popen(
-                "upower -i " + battery_name + " | " +
-                "grep state | cut -d ':' -f2 | xargs").read().strip("\n")
+                "cat " + battery_name + "/status").read().strip("\n")
 
         bat_p = int(os.popen(
-                "upower -i " + battery_name + " | " +
-                "grep percentage | grep -o '[0-9]*'").read().strip("\n"))
+                "cat " + battery_name + "/capacity").read().strip("\n"))
 
-        if bat_s == "discharging":
+        if bat_s == "Discharging":
             i = int(round((bat_p+2)/25))
             if bat_p <= 5:
                 return "<span foreground='#ff0000'>{}</span> {:>3.0f}%".format(
@@ -62,19 +60,15 @@ def get_battery():
                 return "<span foreground='#ffffff'>{}</span> {:>3.0f}%".format(
                         battery_icons[0][i], bat_p)
 
-        elif bat_s == "charging":
+        elif bat_s == "Charging":
             return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], bat_p)
 
-        elif bat_s == "empty":
-            return "<span foreground='#808080'>{}</span>   0%".format(
-                    battery_icons[0][0])
-
-        elif bat_s == "fully-charged":
+        elif bat_s == "Full":
             return "<span foreground='#00ff00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], 100)
 
-        elif bat_s == "pending-charge" or bat_s == "pending-discharge":
+        elif bat_s == "Not charging":
             return "<span foreground='#808080'>{}</span> {:>3.0f}%".format(
                     battery_icons[0][0], bat_p)
 
@@ -435,7 +429,7 @@ def set_widgets_screen():
                 background=colors[0],
                 func=get_volume,
                 padding=16,
-                update_interval=0.1
+                update_interval=0.2
                 ),
             widget.Spacer(
                 background=colors[1],
@@ -479,7 +473,7 @@ def set_widgets_screen():
                 background=colors[0],
                 func=get_battery,
                 padding=16,
-                update_interval=1
+                update_interval=5
                 ),
             widget.Spacer(
                 background=colors[1],

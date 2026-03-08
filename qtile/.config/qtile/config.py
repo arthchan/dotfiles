@@ -64,7 +64,7 @@ def get_battery():
             return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], bat_p)
 
-        elif bat_s == "Full":
+        elif bat_s == "Full" or (bat_s == "Not charging" and bat_p == 100):
             return "<span foreground='#00ff00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], 100)
 

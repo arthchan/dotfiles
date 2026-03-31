@@ -62,3 +62,6 @@ vim.opt.swapfile = false
 
 -- Enable terminal colours
 vim.opt.termguicolors = true
+
+-- Disable end of buffer tildes
+vim.opt.fillchars = { eob = " " }

@@ -149,10 +149,11 @@ web_browser = "brave"
 
 # Initialise other device-specific variables
 settings = read_settings()
+battery_name = settings["battery_name"]
 qtile_bar_size = settings["qtile_bar_size"]
 qtile_font_size = settings["qtile_font_size"]
 rofi_dpi = str(settings["rofi_dpi"])
-battery_name = settings["battery_name"]
+sleep_mode = settings["sleep_mode"]
 
 keys = [
     # [mod] + [key]
@@ -326,17 +327,17 @@ keys = [
         desc="Take screenshot"
         ),
     # [mod] + [key] + [key] + [key]
-    # Sign out, reboot, hibernate, or shutdown
+    # Sign out, reboot, suspend/hibernate, or shutdown
     KeyChord([mod], "x", [
         KeyChord([], "u", [
             Key([], "i", lazy.shutdown()),
             Key([], "r", lazy.spawn("systemctl --no-wall reboot")),
-            Key([], "s", lazy.spawn("systemctl --no-wall hibernate")),
+            Key([], "s", lazy.spawn("systemctl --no-wall " + sleep_mode)),
             Key([], "u", lazy.spawn("systemctl --no-wall poweroff"))
         ])
     ],
              mode=False,
-             desc="Sign out, reboot, hibernate, or shutdown"
+             desc="Sign out, reboot, suspend/hibernate, or shutdown"
              )
 ]
 

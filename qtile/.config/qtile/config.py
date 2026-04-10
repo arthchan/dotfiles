@@ -91,7 +91,7 @@ def get_network():
         if "enp" in out[0][1]:
             return network_icons[4]
 
-        elif "wlan0" in out[0][1]:
+        elif "wl" in out[0][1]:
             quality = int(os.popen(
                 "nmcli -t -f IN-USE,SIGNAL device wifi | " +
                 "grep '*' | grep -o '[0-9]\\+'").read().split('\n')[0])

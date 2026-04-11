@@ -19,16 +19,16 @@ def center_floating_window(window):
 def get_volume():
     try:
         vol = os.popen("pamixer --get-volume-human").read()
-        src = os.popen("pamixer --get-default-sink").read()
+        src = os.popen("pactl list sinks | grep 'Active Port'").read()
 
         if '%' not in vol:
-            if "Headphones" in src or "AirPods" in src:
+            if "headphone" in src:
                 return "<span size='105%'>󱡐</span> {:>3.0f}%".format(0)
             return " {:>3.0f}%".format(0)
 
         else:
             vol = int(vol.split('%')[0])
-            if "Headphones" in src or "AirPods" in src:
+            if "headphone" in src:
                 return "<span size='105%'>󱡏</span> {:>3.0f}%".format(vol)
             return " {:>3.0f}%".format(vol)
 

@@ -18,10 +18,13 @@ def center_floating_window(window):
 
 def get_volume():
     try:
-        vol = os.popen("pamixer --get-volume-human").read()
+        mut = os.popen("pactl get-sink-mute @DEFAULT_SINK@").read()
+        vol = os.popen(
+                "pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+%' | " +\
+                        "head -n1").read()
         src = os.popen("pactl list sinks | grep 'Active Port'").read().lower()
 
-        if '%' not in vol:
+        if "yes" in mut:
             if "headphone" in src:
                 return "<span size='105%'>󱡐</span> {:>3.0f}%".format(0)
             return " {:>3.0f}%".format(0)

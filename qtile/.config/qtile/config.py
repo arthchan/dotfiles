@@ -46,12 +46,14 @@ network_icons = [['󰤟', '󰤢', '󰤥', '󰤨'], ['󰤡', '󰤤', '󰤧', '�
 def get_battery():
     try:
         bat_s = os.popen(
-                "cat " + battery_name + "/status").read().strip("\n")
+                "upower -b | grep state | cut -d ':' -f2 | xargs").read(
+                        ).strip("\n")
 
         bat_p = int(os.popen(
-                "cat " + battery_name + "/capacity").read().strip("\n"))
+                "upower -b | grep percentage | grep -o '[0-9]*'").read(
+                    ).strip("\n"))
 
-        if bat_s == "Discharging":
+        if bat_s == "discharging":
             i = int(round((bat_p+2)/25))
             if bat_p <= 5:
                 return "<span foreground='#ff0000'>{}</span> {:>3.0f}%".format(
@@ -63,17 +65,21 @@ def get_battery():
                 return "<span foreground='#ffffff'>{}</span> {:>3.0f}%".format(
                         battery_icons[0][i], bat_p)
 
-        elif bat_s == "Charging":
+        elif bat_s == "charging":
             return "<span foreground='#ffbf00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], bat_p)
 
-        elif bat_s == "Full" or (bat_s == "Not charging" and bat_p == 100):
+        elif bat_s == "fully-charged":
             return "<span foreground='#00ff00'>{}</span> {:>3.0f}%".format(
                     battery_icons[1], 100)
 
-        elif bat_s == "Not charging":
+        elif bat_s == "pending-charge" or bat_s == "pending-discharge":
             return "<span foreground='#808080'>{}</span> {:>3.0f}%".format(
                     battery_icons[0][0], bat_p)
+
+        elif bat_s == "empty":
+            return "<span foreground='#808080'>{}</span> {:>3.0f}%".format(
+                    battery_icons[0][0], 0)
 
         else:
             return "<span foreground='#808080>{}</span>   ?%".format(

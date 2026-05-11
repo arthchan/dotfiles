@@ -158,7 +158,6 @@ web_browser = "brave"
 
 # Initialise other device-specific variables
 settings = read_settings()
-battery_name = settings["battery_name"]
 qtile_bar_size = settings["qtile_bar_size"]
 qtile_font_size = settings["qtile_font_size"]
 rofi_dpi = str(settings["rofi_dpi"])
@@ -535,17 +534,7 @@ def init_screens():
                 wallpaper_mode="fill",
                 top=bar.Bar(widgets=set_widgets_screen(),
                             size=qtile_bar_size)),
-            Screen(
-                wallpaper="~/.config/qtile/wallpaper.jpg",
-                wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(),
-                            size=qtile_bar_size)),
-            Screen(
-                wallpaper="~/.config/qtile/wallpaper.jpg",
-                wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(),
-                            size=qtile_bar_size)),
-            ]
+                ]
 
 
 screens = init_screens()

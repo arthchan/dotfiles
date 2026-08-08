@@ -385,13 +385,13 @@ layout_theme = {"border_width": 3,
 
 layouts = [
     layout.Columns(**layout_theme, border_on_single=True),
-    layout.Max(**layout_theme),
-    # layout.Stack(num_stacks=2),
+    layout.Stack(**layout_theme, num_stacks=1),
+    # layout.Max(**layout_theme),
+    # layout.MonadTall(**layout_theme),
+    # layout.MonadWide(**layout_theme),
+    # layout.RatioTile(**layout_theme),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
-    layout.RatioTile(**layout_theme),
     # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
@@ -514,9 +514,6 @@ def set_widgets_screen():
             widget.CurrentLayout(
                 background=colors[0],
                 mode="icon",
-                mouse_callbacks={"Button1": lambda: None,
-                                 "Button2": lambda: None,
-                                 "Button3": lambda: None},
                 padding=10,
                 scale=0.5
                 ),
@@ -530,11 +527,11 @@ def set_widgets_screen():
 def init_screens():
     return [
             Screen(
-                wallpaper="~/.config/qtile/wallpaper.jpg",
-                wallpaper_mode="fill",
-                top=bar.Bar(widgets=set_widgets_screen(),
-                            size=qtile_bar_size)),
-                ]
+                top=bar.Bar(
+                    widgets=set_widgets_screen(),
+                    size=qtile_bar_size)
+                ),
+            ]
 
 
 screens = init_screens()

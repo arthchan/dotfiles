@@ -514,6 +514,9 @@ def set_widgets_screen():
             widget.CurrentLayout(
                 background=colors[0],
                 mode="icon",
+                mouse_callbacks={"Button1": lambda: None,
+                                 "Button2": lambda: None,
+                                 "Button3": lambda: None},
                 padding=10,
                 scale=0.5
                 ),

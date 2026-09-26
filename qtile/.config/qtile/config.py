@@ -144,6 +144,11 @@ def read_settings():
     f.close()
     return settings
 
+# Set environment variables
+os.environ["QT_QPA_PLATFORMTHEME"] = "qt6ct"
+os.environ["GTK_IM_MODULE"] = "fcitx"
+os.environ["QT_IM_MODULE"] = "fcitx"
+os.environ["XMODIFIERS"] = "@im=fcitx"
 
 # Initialise assigned keys and applications
 mod = "mod4"

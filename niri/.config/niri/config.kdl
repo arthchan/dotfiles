@@ -174,7 +174,7 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f"
-spawn-at-startup "fcitx5" "-d"
+spawn-at-startup "fcitx5" "-r"
 
 // Set environment variables.
 environment {
@@ -184,7 +184,6 @@ environment {
     XMODIFIERS "@im=fcitx"
     SDL_IM_MODULE "fcitx"
     GLFW_IM_MODULE "ibus"
-	GTK_IM_MODULE ""
 }
 
 // Run a shell command (with variables, pipes, etc.).

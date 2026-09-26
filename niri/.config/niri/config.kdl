@@ -71,6 +71,7 @@ input {
     // Position of the output in the global coordinate space.
     position x=1280 y=0
 }
+include "monitor.kdl"
 
 // Make the wallpaper stationary, rather than moving with workspaces.
 layer-rule {
@@ -254,6 +255,7 @@ binds {
 	Mod+D		hotkey-overlay-title="Open the application launcher" { spawn "rofi" "-show" "run"; }
 	Mod+F		hotkey-overlay-title="Open the file manager" { spawn "nemo"; }
 	Mod+M		hotkey-overlay-title="Open the music streaming service" { spawn "spotify-launcher"; }
+	Mod+P		hotkey-overlay-title="Open the screen management utility" { spawn "nwg-displays"; }
     Mod+T		hotkey-overlay-title="Open a terminal" { spawn "kitty"; }
     Mod+V		hotkey-overlay-title="Open the volume mixer" { spawn "pavucontrol-qt"; }
     Mod+W		hotkey-overlay-title="Open the web browser" { spawn "brave"; }

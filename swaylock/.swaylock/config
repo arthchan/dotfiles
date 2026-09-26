@@ -1,0 +1,16 @@
+image=~/.swaylock/lockscreen.png
+disable-caps-lock-text
+scaling=center
+color=000000
+font=FiraCode Nerd Font
+indicator-idle-visible
+indicator-radius=80
+inside-color=00000000
+inside-clear-color=00000000
+ring-clear-color=51AFEF
+text-clear-color=00000000
+inside-ver-color=00000000
+text-ver-color=00000000
+inside-wrong-color=00000000
+ring-wrong-color=B81D13
+text-wrong-color=00000000

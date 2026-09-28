@@ -79,6 +79,15 @@ layer-rule {
     place-within-backdrop true
 }
 
+// Set specific layer to open with background blur effect.
+layer-rule {
+    match namespace="^rofi$"
+    background-effect {
+		xray false
+        blur true
+    }
+}
+
 // Disable the workspace shadows in the overview.
 overview {
     workspace-shadow {
@@ -238,9 +247,10 @@ window-rule {
 
 // Set specific windows to open with background blur effect.
 window-rule {
-    match app-id="kitty"
+    match title="nmtui"
 	opacity 0.85
     background-effect {
+		xray false
         blur true
     }
 }

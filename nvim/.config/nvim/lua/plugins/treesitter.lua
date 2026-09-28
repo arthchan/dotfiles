@@ -3,7 +3,10 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		opts = {
 			indent = { enable = true },
-			highlight = { enable = true },
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false
+			},
 			folds = { enable = true },
 			ensure_installed = {
 				"bash",

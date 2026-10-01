@@ -3,5 +3,4 @@ fcitx5 &
 flameshot &
 light-locker --lock-after-screensaver=0 &
 picom &
-~/.fehbg &
 xbindkeys

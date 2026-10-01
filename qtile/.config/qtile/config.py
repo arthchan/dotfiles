@@ -167,6 +167,7 @@ qtile_bar_size = settings["qtile_bar_size"]
 qtile_font_size = settings["qtile_font_size"]
 rofi_dpi = str(settings["rofi_dpi"])
 sleep_mode = settings["sleep_mode"]
+wallpaper_path = settings["wallpaper_path"]
 
 keys = [
     # [mod] + [key]
@@ -421,6 +422,7 @@ def set_widgets_screen():
             widget.GroupBox(
                 active=colors[3],
                 disable_drag=True,
+                hide_unused=True,
                 highlight_method="line",
                 mouse_callbacks={"Button1": lambda: None},
                 padding=3,
@@ -429,15 +431,15 @@ def set_widgets_screen():
                 use_mouse_wheel=False
                 ),
             widget.Sep(
-                padding=10
+                padding=6
                 ),
             widget.WindowName(
                 foreground=colors[3],
-                padding=10
+                padding=8
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.GenPollText(
                 background=colors[0],
@@ -447,7 +449,7 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.CPU(
                 background=colors[0],
@@ -457,7 +459,7 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.Memory(
                 background=colors[0],
@@ -467,7 +469,7 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.GenPollText(
                 background=colors[0],
@@ -481,7 +483,7 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.GenPollText(
                 background=colors[0],
@@ -491,7 +493,7 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.Spacer(
                 background=colors[0],
@@ -514,7 +516,7 @@ def set_widgets_screen():
                 ),
             widget.Spacer(
                 background=colors[1],
-                length=10
+                length=6
                 ),
             widget.CurrentLayout(
                 background=colors[0],
@@ -533,13 +535,36 @@ def set_widgets_screen():
 
 
 def init_screens():
-    return [
-            Screen(
-                top=bar.Bar(
-                    widgets=set_widgets_screen(),
-                    size=qtile_bar_size)
-                ),
-            ]
+    if os.path.exists(os.path.expanduser(wallpaper_path)):
+        return [
+                Screen(
+                    wallpaper=wallpaper_path,
+                    wallpaper_mode="fill",
+                    top=bar.Bar(
+                        widgets=set_widgets_screen(),
+                        size=qtile_bar_size)
+                    ),
+                Screen(
+                    wallpaper=wallpaper_path,
+                    wallpaper_mode="fill",
+                    top=bar.Bar(
+                        widgets=set_widgets_screen(),
+                        size=qtile_bar_size)
+                    ),
+                ]
+    else:
+        return [
+                Screen(
+                    top=bar.Bar(
+                        widgets=set_widgets_screen(),
+                        size=qtile_bar_size)
+                    ),
+                Screen(
+                    top=bar.Bar(
+                        widgets=set_widgets_screen(),
+                        size=qtile_bar_size)
+                    ),
+                ]
 
 
 screens = init_screens()

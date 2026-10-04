@@ -8,8 +8,7 @@ import os
 
 @hook.subscribe.client_new
 def center_floating_window(window):
-    if window.name in ["Bluetooth Manager", "Network Manager",
-                       "System Monitor"]:
+    if window.name in ["bluetui", "nmtui"]:
         window.floating = True
         window.set_size_floating(1200, 800)
         window.center()
@@ -156,7 +155,6 @@ bluetooth_manager = "bluetui"
 file_manager = "nemo"
 music_player = "spotify-launcher"
 network_manager = "nmtui"
-system_monitor = "htop"
 terminal = "kitty"
 volume_mixer = "pavucontrol-qt"
 web_browser = "brave"
@@ -231,7 +229,7 @@ keys = [
         desc="Launch the terminal"
         ),
     Key([mod], "b",
-        lazy.spawn(terminal + " --title=Bluetooth\ Manager" + " -e " +
+        lazy.spawn(terminal + " --title=bluetui" + " -e " +
                    bluetooth_manager),
         desc="Launch the bluetooth manager"
         ),
@@ -243,19 +241,13 @@ keys = [
         lazy.spawn(file_manager),
         desc="Launch the file manager"
         ),
-    Key([mod], "i",
-        lazy.spawn(
-            terminal + " --title=System\ Monitor" + " -e " +
-            system_monitor),
-        desc="Launch the system monitor"
-        ),
     Key([mod], "m",
         lazy.spawn(music_player),
         desc="Launch the music player"
         ),
     Key([mod], "n",
         lazy.spawn(
-            terminal + " --title=Network\ Manager" + " -e " +
+            terminal + " --title=nmtui" + " -e " +
             network_manager),
         desc="Launch the network manager"
         ),

@@ -239,6 +239,7 @@ window-rule {
 window-rule {
 	match app-id="pavucontrol-qt"
 	match title="bluetui"
+	match title="htop"
 	match title="nmtui"
     open-floating true
 	default-column-width { proportion 0.65; }
@@ -261,19 +262,20 @@ binds {
     // Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs.
-	Mod+D		hotkey-overlay-title="Open the application launcher" { spawn "rofi" "-show" "run"; }
-	Mod+F		hotkey-overlay-title="Open the file manager" { spawn "nemo"; }
-	Mod+M		hotkey-overlay-title="Open the music streaming service" { spawn "spotify-launcher"; }
-	Mod+P		hotkey-overlay-title="Open the screen management utility" { spawn "nwg-displays"; }
-    Mod+T		hotkey-overlay-title="Open a terminal" { spawn "kitty"; }
-    Mod+V		hotkey-overlay-title="Open the volume mixer" { spawn "pavucontrol-qt"; }
-    Mod+W		hotkey-overlay-title="Open the web browser" { spawn "brave"; }
-	Mod+Escape	hotkey-overlay-title="Lock the screen" { spawn "swaylock"; }
-	Mod+Return	hotkey-overlay-title="Open a terminal" { spawn "kitty"; }
+	Mod+D		hotkey-overlay-title="Open the application launcher"		{ spawn "rofi" "-show" "run"; }
+	Mod+F		hotkey-overlay-title="Open the file manager"				{ spawn "nemo"; }
+	Mod+M		hotkey-overlay-title="Open the music streaming service"		{ spawn "spotify-launcher"; }
+	Mod+P		hotkey-overlay-title="Open the screen management utility"	{ spawn "nwg-displays"; }
+    Mod+T		hotkey-overlay-title="Open a terminal"						{ spawn "kitty"; }
+    Mod+V		hotkey-overlay-title="Open the volume mixer"				{ spawn "pavucontrol-qt"; }
+    Mod+W		hotkey-overlay-title="Open the web browser"					{ spawn "brave"; }
+	Mod+Escape	hotkey-overlay-title="Lock the screen"						{ spawn "swaylock"; }
+	Mod+Return	hotkey-overlay-title="Open a terminal"						{ spawn "kitty"; }
 
     // Use spawn-sh to run a shell command.
     Mod+B hotkey-overlay-title="Open the bluetooth manager" { spawn-sh "kitty --title=bluetui -e bluetui"; }
-    Mod+N hotkey-overlay-title="Open the network manager" { spawn-sh "kitty --title=nmtui -e nmtui"; }
+	Mod+I hotkey-overlay-title="Open the system monitor"	{ spawn-sh "kitty --title=htop -e htop"; }
+    Mod+N hotkey-overlay-title="Open the network manager"	{ spawn-sh "kitty --title=nmtui -e nmtui"; }
 	
 	// Map volume control keys.
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+ -l 1.0"; }
@@ -288,7 +290,7 @@ binds {
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
 	// Map screen brightness control keys.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "--min-value=1" "-e" "set" "+5%"; }
+    XF86MonBrightnessUp allow-when-locked=true	 { spawn "brightnessctl" "--class=backlight" "--min-value=1" "-e" "set" "+5%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "--min-value=1" "-e" "set" "5%-"; }
 
 	// Open/close the Overview: a zoomed-out view of workspaces and windows.
@@ -299,35 +301,39 @@ binds {
 
 	// Move column, window and workspace focus.
     Mod+H			{ focus-column-left; }
-    Mod+J		    { focus-window-down; }
-    Mod+K			{ focus-window-up; }
+    Mod+J		    { focus-workspace-down; }
+    Mod+K			{ focus-workspace-up; }
     Mod+L			{ focus-column-right; }
 	Mod+Home		{ focus-column-first; }
 	Mod+End			{ focus-column-last; }
+	Mod+Tab			{ focus-column-right; }
+	Mod+Shift+Tab	{ focus-column-left; }
+	Mod+Ctrl+J		{ focus-window-down; }
+	Mod+Ctrl+K		{ focus-window-up; }
 	Mod+Left		{ focus-monitor-left; }
 	Mod+Down		{ focus-monitor-down; }
 	Mod+Up			{ focus-monitor-up; }
 	Mod+Right		{ focus-monitor-right; }
-	Mod+Tab			{ focus-workspace-down; }
-	Mod+Shift+Tab   { focus-workspace-up; }
 
 	// Move column and workspace focus with scroll wheel.
 	Mod+WheelScrollDown			cooldown-ms=150 { focus-workspace-down; }
 	Mod+WheelScrollUp			cooldown-ms=150 { focus-workspace-up; }
-	Mod+Shift+WheelScrollDown   { focus-column-right; }
-	Mod+Shift+WheelScrollUp     { focus-column-left; }
+	Mod+Shift+WheelScrollDown	{ focus-column-right; }
+	Mod+Shift+WheelScrollUp		{ focus-column-left; }
 
 	// Set column and window movement.
-    Mod+Shift+H     { move-column-left; }
-    Mod+Shift+J     { move-window-down; }
-    Mod+Shift+K     { move-window-up; }
-    Mod+Shift+L     { move-column-right; }
-	Mod+Shift+Home  { move-column-to-first; }
-	Mod+Shift+End   { move-column-to-last; }
-	Mod+Shift+Left  { move-column-to-monitor-left; }
-	Mod+Shift+Down  { move-column-to-monitor-down; }
-	Mod+Shift+Up    { move-column-to-monitor-up; }
-	Mod+Shift+Right { move-column-to-monitor-right; }
+    mod+shift+H			{ move-column-left; }
+    mod+shift+J			{ move-column-to-workspace-down; }
+    mod+shift+K			{ move-column-to-workspace-up; }
+    mod+shift+L			{ move-column-right; }
+	Mod+Shift+Home		{ move-column-to-first; }
+	Mod+Shift+End		{ move-column-to-last; }
+	Mod+Shift+Left		{ move-column-to-monitor-left; }
+	Mod+Shift+Down		{ move-column-to-monitor-down; }
+	Mod+Shift+Up		{ move-column-to-monitor-up; }
+	Mod+Shift+Right		{ move-column-to-monitor-right; }
+	Mod+Ctrl+Shift+J	{ move-window-down; }
+	Mod+Ctrl+Shift+K	{ move-window-up; }
 
     // Move focus to workspace with number.
     Mod+1 { focus-workspace 1; }
@@ -341,33 +347,33 @@ binds {
     Mod+9 { focus-workspace 9; }
 
 	// Move column to workspace with number.
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
 
 	// Move window to workspace with number.
-    Mod+Shift+1 { move-window-to-workspace 1; }
-    Mod+Shift+2 { move-window-to-workspace 2; }
-    Mod+Shift+3 { move-window-to-workspace 3; }
-    Mod+Shift+4 { move-window-to-workspace 4; }
-    Mod+Shift+5 { move-window-to-workspace 5; }
-    Mod+Shift+6 { move-window-to-workspace 6; }
-    Mod+Shift+7 { move-window-to-workspace 7; }
-    Mod+Shift+8 { move-window-to-workspace 8; }
-    Mod+Shift+9 { move-window-to-workspace 9; }
+    Mod+Ctrl+1 { move-window-to-workspace 1; }
+    Mod+Ctrl+2 { move-window-to-workspace 2; }
+    Mod+Ctrl+3 { move-window-to-workspace 3; }
+    Mod+Ctrl+4 { move-window-to-workspace 4; }
+    Mod+Ctrl+5 { move-window-to-workspace 5; }
+    Mod+Ctrl+6 { move-window-to-workspace 6; }
+    Mod+Ctrl+7 { move-window-to-workspace 7; }
+    Mod+Ctrl+8 { move-window-to-workspace 8; }
+    Mod+Ctrl+9 { move-window-to-workspace 9; }
 
     // The following binds move the focused window in and out of a column.
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
-    Mod+Comma  { consume-window-into-column; }
+    Mod+Comma { consume-window-into-column; }
 
     // Expel the bottom window from the focused column to the right.
     Mod+Period { expel-window-from-column; }
@@ -401,9 +407,9 @@ binds {
     // Bind an escape hatch to toggle the inhibitor.
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-    // Sign out (Quit), Reboot, Sleep (Hibernate) and Shut down (Power off).
-    Mod+Ctrl+Shift+I { quit; }
-	Mod+Ctrl+Shift+R { spawn-sh "systemctl --no-wall reboot"; }
-	Mod+Ctrl+Shift+S { spawn-sh "systemctl --no-wall hibernate"; }
-	Mod+Ctrl+Shift+U { spawn-sh "systemctl --no-wall poweroff"; }
+    // Reboot, Sleep (Hibernate), Shut down (Power off) and Sign out (Quit).
+	Mod+Ctrl+R			{ spawn-sh "systemctl --no-wall reboot"; }
+	Mod+Ctrl+Q			{ spawn-sh "systemctl --no-wall hibernate"; }
+	Mod+Ctrl+Shift+Q	{ spawn-sh "systemctl --no-wall poweroff"; }
+	Mod+Shift+Q			{ quit; }
 }

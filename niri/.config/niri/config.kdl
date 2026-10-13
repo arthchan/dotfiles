@@ -244,16 +244,9 @@ window-rule {
     open-floating true
 	default-column-width { proportion 0.65; }
 	default-window-height { proportion 0.75; }
-}
-
-// Set specific windows to open with background blur effect.
-window-rule {
-    match title="nmtui"
-	opacity 0.85
-    background-effect {
+	background-effect {
 		xray false
-        blur true
-    }
+	}
 }
 
 // Set keybindings.

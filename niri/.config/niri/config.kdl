@@ -79,13 +79,10 @@ layer-rule {
     place-within-backdrop true
 }
 
-// Set specific layer to open with background blur effect.
+// Set background transparency for specific layers.
 layer-rule {
     match namespace="^rofi$"
-    background-effect {
-		xray false
-        blur true
-    }
+	opacity 0.99
 }
 
 // Disable the workspace shadows in the overview.
@@ -235,6 +232,12 @@ window-rule {
     open-floating true
 }
 
+// Set background transparency for specific windows.
+window-rule {
+	match app-id="kitty"
+	opacity 0.99
+}
+
 // Set specific windows to open in floating mode and specific window size.
 window-rule {
 	match app-id="pavucontrol-qt"
@@ -244,9 +247,6 @@ window-rule {
     open-floating true
 	default-column-width { proportion 0.65; }
 	default-window-height { proportion 0.75; }
-	background-effect {
-		xray false
-	}
 }
 
 // Set keybindings.

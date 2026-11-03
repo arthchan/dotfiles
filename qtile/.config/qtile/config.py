@@ -8,7 +8,7 @@ import os
 
 @hook.subscribe.client_new
 def center_floating_window(window):
-    if window.name in ["bluetui", "nmtui"]:
+    if window.name in ["bluetui", "htop", "nmtui"]:
         window.floating = True
         window.set_size_floating(1200, 800)
         window.center()
@@ -155,6 +155,7 @@ bluetooth_manager = "bluetui"
 file_manager = "nemo"
 music_player = "spotify-launcher"
 network_manager = "nmtui"
+system_monitor = "htop"
 terminal = "kitty"
 volume_mixer = "pavucontrol-qt"
 web_browser = "brave"
@@ -225,11 +226,11 @@ keys = [
         ),
     # Launch applications
     Key([mod], "return",
-        lazy.spawn(terminal),
+        lazy.spawn(terminal + " --title=Terminal"),
         desc="Launch the terminal"
         ),
     Key([mod], "b",
-        lazy.spawn(terminal + " --title=bluetui" + " -e " +
+        lazy.spawn(terminal + " --title=" + bluetooth_manager + " -e " +
                    bluetooth_manager),
         desc="Launch the bluetooth manager"
         ),
@@ -241,18 +242,22 @@ keys = [
         lazy.spawn(file_manager),
         desc="Launch the file manager"
         ),
+    Key([mod], "i",
+        lazy.spawn(terminal + " --title=" + system_monitor + " -e " +
+                   system_monitor),
+        desc="Launch the network manager"
+        ),
     Key([mod], "m",
         lazy.spawn(music_player),
         desc="Launch the music player"
         ),
     Key([mod], "n",
-        lazy.spawn(
-            terminal + " --title=nmtui" + " -e " +
-            network_manager),
+        lazy.spawn(terminal + " --title=" + network_manager + " -e " +
+                   network_manager),
         desc="Launch the network manager"
         ),
     Key([mod], "t",
-        lazy.spawn(terminal),
+        lazy.spawn(terminal + " --title=Terminal"),
         desc="Launch the terminal"
         ),
     Key([mod], "v",
@@ -285,6 +290,11 @@ keys = [
         lazy.layout.normalize(),
         desc="Reset all window sizes"
         ),
+    # Shutdown Qtile
+    Key([mod, "control"], "q",
+        lazy.shutdown(),
+        desc="Shutdown Qtile"
+        ),
     # Reload config
     Key([mod, "control"], "r",
         lazy.reload_config(),
@@ -313,6 +323,11 @@ keys = [
         lazy.layout.shuffle_up(),
         desc="Move window up"
         ),
+    # Sleep (suspend or hibernate)
+    Key([mod, "shift"], "q",
+        lazy.spawn("systemctl --no-wall " + sleep_mode),
+        desc="Sleep (suspend or hibernate)"
+        ),
     # Toggle floating window and split sides
     Key([mod, "shift"], "f",
         lazy.window.toggle_floating(),
@@ -332,19 +347,17 @@ keys = [
         lazy.spawn("flameshot gui"),
         desc="Take screenshot"
         ),
-    # [mod] + [key] + [key] + [key]
-    # Sign out, reboot, suspend/hibernate, or shutdown
-    KeyChord([mod], "x", [
-        KeyChord([], "u", [
-            Key([], "i", lazy.shutdown()),
-            Key([], "r", lazy.spawn("systemctl --no-wall reboot")),
-            Key([], "s", lazy.spawn("systemctl --no-wall " + sleep_mode)),
-            Key([], "u", lazy.spawn("systemctl --no-wall poweroff"))
-        ])
-    ],
-             mode=False,
-             desc="Sign out, reboot, suspend/hibernate, or shutdown"
-             )
+    # [mod] + [ctl] + [sft] + [key]
+    # Reboot
+    Key([mod, "control", "shift"], "r",
+        lazy.spawn("systemctl --no-wall reboot"),
+        desc="Reboot"
+        ),
+    # Shut down (power off)
+    Key([mod, "control", "shift"], "q",
+        lazy.spawn("systemctl --no-wall poweroff"),
+        desc="Shut down (power off)"
+        ),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -399,7 +412,7 @@ layouts = [
 colors = ["#000000", "#181a1f", "#ffffff", "#51afef"]
 
 widget_defaults = dict(
-    font="FiraCode Nerd Font, Sarasa Mono TC",
+    font="FiraCode Nerd Font Propo, Sarasa Mono TC",
     fontsize=qtile_font_size,
     background=colors[1],
 )
@@ -427,7 +440,7 @@ def set_widgets_screen():
                 ),
             widget.WindowName(
                 foreground=colors[3],
-                padding=8
+                padding=6
                 ),
             widget.Spacer(
                 background=colors[1],
@@ -436,7 +449,7 @@ def set_widgets_screen():
             widget.GenPollText(
                 background=colors[0],
                 func=get_volume,
-                padding=16,
+                padding=12,
                 update_interval=0.2
                 ),
             widget.Spacer(
@@ -447,7 +460,7 @@ def set_widgets_screen():
                 background=colors[0],
                 fmt=" {}",
                 format="{load_percent:>3.0f}%",
-                padding=16
+                padding=12
                 ),
             widget.Spacer(
                 background=colors[1],
@@ -457,7 +470,7 @@ def set_widgets_screen():
                 background=colors[0],
                 fmt=" {}",
                 format="{MemPercent:>3.0f}%",
-                padding=16
+                padding=12
                 ),
             widget.Spacer(
                 background=colors[1],
@@ -470,41 +483,23 @@ def set_widgets_screen():
                 update_interval=1
                 ),
             widget.Spacer(
-                background=colors[0],
-                length=8
-                ),
-            widget.Spacer(
                 background=colors[1],
                 length=6
                 ),
             widget.GenPollText(
                 background=colors[0],
                 func=get_battery,
-                padding=16,
+                padding=12,
                 update_interval=5
                 ),
             widget.Spacer(
                 background=colors[1],
                 length=6
                 ),
-            widget.Spacer(
-                background=colors[0],
-                length=16
-                ),
-            widget.TextBox(
-                background=colors[0],
-                fmt="󰃰 ",
-                fontsize=qtile_font_size + 2,
-                padding=0
-                ),
             widget.Clock(
                 background=colors[0],
-                format="%Y-%m-%d %H:%M",
-                padding=2
-                ),
-            widget.Spacer(
-                background=colors[0],
-                length=10
+                format="󰃰 %Y-%m-%d %H:%M",
+                padding=12
                 ),
             widget.Spacer(
                 background=colors[1],

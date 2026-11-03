@@ -400,9 +400,9 @@ binds {
     // Bind an escape hatch to toggle the inhibitor.
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-    // Reboot, Sleep (Hibernate), Shut down (Power off) and Sign out (Quit).
-	Mod+Ctrl+R			{ spawn-sh "systemctl --no-wall reboot"; }
-	Mod+Ctrl+Q			{ spawn-sh "systemctl --no-wall hibernate"; }
+    // Sign out (Quit), Reboot, Shut down (Power off) and Sleep (Hibernate).
+	Mod+Ctrl+Q			{ quit; }
+	Mod+Ctrl+Shift+R	{ spawn-sh "systemctl --no-wall reboot"; }
 	Mod+Ctrl+Shift+Q	{ spawn-sh "systemctl --no-wall poweroff"; }
-	Mod+Shift+Q			{ quit; }
+	Mod+Shift+Q			{ spawn-sh "systemctl --no-wall hibernate"; }
 }

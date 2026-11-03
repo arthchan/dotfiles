@@ -259,16 +259,16 @@ binds {
 	Mod+F		hotkey-overlay-title="Open the file manager"				{ spawn "nemo"; }
 	Mod+M		hotkey-overlay-title="Open the music streaming service"		{ spawn "spotify-launcher"; }
 	Mod+P		hotkey-overlay-title="Open the screen management utility"	{ spawn "nwg-displays"; }
-    Mod+T		hotkey-overlay-title="Open a terminal"						{ spawn "kitty"; }
-    Mod+V		hotkey-overlay-title="Open the volume mixer"				{ spawn "pavucontrol-qt"; }
-    Mod+W		hotkey-overlay-title="Open the web browser"					{ spawn "brave"; }
+	Mod+V		hotkey-overlay-title="Open the volume mixer"				{ spawn "pavucontrol-qt"; }
+	Mod+W		hotkey-overlay-title="Open the web browser"					{ spawn "brave"; }
 	Mod+Escape	hotkey-overlay-title="Lock the screen"						{ spawn "swaylock"; }
-	Mod+Return	hotkey-overlay-title="Open a terminal"						{ spawn "kitty"; }
 
     // Use spawn-sh to run a shell command.
-    Mod+B hotkey-overlay-title="Open the bluetooth manager" { spawn-sh "kitty --title=bluetui -e bluetui"; }
-	Mod+I hotkey-overlay-title="Open the system monitor"	{ spawn-sh "kitty --title=htop -e htop"; }
-    Mod+N hotkey-overlay-title="Open the network manager"	{ spawn-sh "kitty --title=nmtui -e nmtui"; }
+	Mod+B		hotkey-overlay-title="Open the bluetooth manager"	{ spawn-sh "kitty --title=bluetui -e bluetui"; }
+	Mod+I		hotkey-overlay-title="Open the system monitor"		{ spawn-sh "kitty --title=htop -e htop"; }
+	Mod+N		hotkey-overlay-title="Open the network manager"		{ spawn-sh "kitty --title=nmtui -e nmtui"; }
+	Mod+T		hotkey-overlay-title="Open a terminal"				{ spawn-sh "kitty --title=Terminal"; }
+	Mod+Return	hotkey-overlay-title="Open a terminal"				{ spawn-sh "kitty --title=Terminal"; }
 	
 	// Map volume control keys.
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+ -l 1.0"; }
@@ -299,8 +299,6 @@ binds {
     Mod+L			{ focus-column-right; }
 	Mod+Home		{ focus-column-first; }
 	Mod+End			{ focus-column-last; }
-	Mod+Tab			{ focus-column-right; }
-	Mod+Shift+Tab	{ focus-column-left; }
 	Mod+Ctrl+J		{ focus-window-down; }
 	Mod+Ctrl+K		{ focus-window-up; }
 	Mod+Left		{ focus-monitor-left; }
